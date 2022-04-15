@@ -1,13 +1,13 @@
-const http = require('http');
+const express = require('express');
+const app = express();
 
-const requestListener = function (req, res) {
-  res.writeHead(200);
-  res.end('Hello, World!');
-}
+app.use(express.static(__dirname + '/js'));
+app.use(express.static(__dirname + '/html'))
 
-console.log("Server opening...");
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + '/index.html');
+});
 
-const server = http.createServer(requestListener);
-server.listen(8080);
-
-console.log("Server open!");
+app.listen(8080, () => {
+  console.log('Server listening on http://localhost:8080');
+});
